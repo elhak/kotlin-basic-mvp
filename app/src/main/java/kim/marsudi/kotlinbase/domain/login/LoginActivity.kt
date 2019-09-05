@@ -34,8 +34,18 @@ import org.androidannotations.annotations.EActivity
  */
 @EActivity(R.layout.activity_login)
 class LoginActivity : BaseActivity(), LoginContract.View {
-    override fun afterView() {
 
+    private lateinit var presenter: LoginPresenter
+
+    override fun loginSuccess() {
+
+    }
+
+    override fun afterView() {
+        hasToolbar()
+        setPageTitle("Sign In")
+
+        presenter = LoginPresenter(this, LoginInteractor(this))
     }
 
 }

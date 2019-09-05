@@ -7,13 +7,14 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.kaopiz.kprogresshud.KProgressHUD
+import com.kliknclean.android.base.IBaseView
 import kim.marsudi.kotlinbase.R
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.UiThread
 
 @EActivity
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity : AppCompatActivity(), IBaseView{
 
     private var mKProgressHUD: KProgressHUD? = null
 
@@ -59,7 +60,7 @@ abstract class BaseActivity : AppCompatActivity(){
     }
 
     @UiThread
-    fun showLoadingDialog(){
+    override fun showLoadingDialog(){
         hideLoadingDialog()
         mKProgressHUD = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -71,17 +72,21 @@ abstract class BaseActivity : AppCompatActivity(){
     }
 
     @UiThread
-    fun hideLoadingDialog(){
+    override fun hideLoadingDialog(){
         mKProgressHUD?.dismiss()
         mKProgressHUD = null
     }
 
     @UiThread
-    fun showNetworkError(){
+    override fun showNetworkError(){
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.error_server_title)
         alertDialogBuilder.setMessage(R.string.error_server_message)
         alertDialogBuilder.setPositiveButton(R.string.error_server_retry, DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.dismiss() })
         alertDialogBuilder.create().show()
+    }
+
+    override fun checkThrowableError(it: Throwable) {
+
     }
 }
