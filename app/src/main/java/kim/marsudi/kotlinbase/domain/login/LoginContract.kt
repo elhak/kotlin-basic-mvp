@@ -1,0 +1,20 @@
+package kim.marsudi.kotlinbase.domain.login
+
+/* 
+    Created by Hakim on 2019-09-05
+    Email hakimmarsudi@outlook.com
+*/
+
+interface LoginContract {
+    interface View{
+
+    }
+
+    interface Presenter{
+
+    }
+
+    interface Interactor{
+
+    }
+}
